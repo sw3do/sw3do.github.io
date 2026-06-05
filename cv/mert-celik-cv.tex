@@ -1,0 +1,105 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1.5cm]{geometry}
+\usepackage{lmodern}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+\input{glyphtounicode}
+\pdfgentounicode=1
+
+\definecolor{accent}{HTML}{0D9488}
+\definecolor{muted}{HTML}{444B53}
+
+\setlength{\parindent}{0pt}
+\pagestyle{empty}
+\hypersetup{urlcolor=accent}
+
+\newenvironment{tight}
+  {\begin{list}{\textcolor{accent}{\small$\bullet$}}{%
+      \setlength{\leftmargin}{1.4em}%
+      \setlength{\itemsep}{1.5pt}%
+      \setlength{\topsep}{2pt}%
+      \setlength{\parsep}{0pt}}}
+  {\end{list}}
+
+\newcommand{\cvsection}[1]{%
+  \vspace{9pt}%
+  {\color{accent}\large\bfseries\MakeUppercase{#1}}\par\vspace{2pt}%
+  {\color{accent}\hrule height 1.1pt}\vspace{5pt}%
+}
+
+\newcommand{\entry}[2]{\textbf{#1}\hfill{\color{muted}#2}\par}
+\newcommand{\subentry}[2]{{\itshape #1}\hfill{\color{muted}\itshape #2}\par\vspace{2pt}}
+
+\begin{document}
+
+\begin{center}
+  {\Huge\bfseries Mert \textcolor{accent}{Çelik}}\par\vspace{4pt}
+  {\color{muted}Software Engineering Student \textbar\ Working Student}\par\vspace{4pt}
+  \small Berlin, Germany \quad\textbar\quad
+  \href{mailto:sw3doo@gmail.com}{sw3doo@gmail.com} \quad\textbar\quad
+  \href{https://github.com/sw3do}{github.com/sw3do} \quad\textbar\quad
+  \href{https://sw3do.github.io}{sw3do.github.io} \quad\textbar\quad
+  \href{https://linkedin.com/in/swedo}{linkedin.com/in/swedo}
+\end{center}
+
+\vspace{6pt}
+\small Software Engineering B.Sc. student in Berlin building production-style backends, CLIs and full-stack apps in Rust, Go and TypeScript. Seeking a working-student (Werkstudent) role, up to 20 hours per week.
+
+\cvsection{Technical Skills}
+\small
+\textbf{Languages:} Rust, Go, Python, TypeScript / JavaScript, Java, Dart \par
+\textbf{Backend:} Axum, SQLx, NestJS, Node.js, REST APIs, PostgreSQL, MySQL \par
+\textbf{Frontend:} Next.js, React, Svelte, Vue, Astro, Tailwind CSS \par
+\textbf{Systems \& Tooling:} Linux, Docker, Git, Tauri, FFmpeg, serial-port / hardware integration \par
+\textbf{Machine Learning:} TensorFlow, Keras \par
+
+\cvsection{Projects}
+\small
+\entry{jikan-rs}{\href{https://github.com/sw3do/jikan-rs}{github.com/sw3do/jikan-rs}}
+{\color{muted}\itshape Rust async library, published to crates.io}\par
+\begin{tight}
+  \item Published an async Rust client covering all Jikan (MyAnimeList) v4 endpoints, with type-safe \texttt{serde} models and built-in rate limiting (3 req/s, burst of 5).
+\end{tight}
+\vspace{3pt}
+\entry{packet-sniffer}{\href{https://github.com/sw3do/packet-sniffer}{github.com/sw3do/packet-sniffer}}
+{\color{muted}\itshape Go, libpcap, BPF}\par
+\begin{tight}
+  \item Built a cross-platform real-time network analyzer that captures, decodes (TCP/UDP/ICMP/HTTP/DNS) and reports traffic, with BPF filtering and suspicious-activity detection.
+\end{tight}
+\vspace{3pt}
+\entry{nsfw-detector}{\href{https://github.com/sw3do/nsfw-detector}{github.com/sw3do/nsfw-detector}}
+{\color{muted}\itshape Python, TensorFlow / Keras}\par
+\begin{tight}
+  \item Built an image content classifier served as a Python library and REST API for programmatic moderation.
+\end{tight}
+\vspace{3pt}
+\entry{discord-custom-rpc}{\href{https://github.com/sw3do/discord-custom-rpc}{github.com/sw3do/discord-custom-rpc}}
+{\color{muted}\itshape Tauri, Vue 3, Rust}\par
+\begin{tight}
+  \item Shipped a cross-platform desktop app with a Rust core and Vue 3 UI to create and manage custom Discord Rich Presence.
+\end{tight}
+
+\cvsection{Education}
+\small
+\entry{GISMA University of Applied Sciences}{Berlin, Germany}
+\subentry{B.Sc. Software Engineering}{Currently enrolled}
+
+\cvsection{Experience}
+\small
+\entry{Working Student --- Software \& Operations}{Berlin, Germany}
+\subentry{Bar \& Entertainment Venue}{Part-time}
+\begin{tight}
+  \item Built internal tools and automated routine operational processes on Linux.
+  \item Implemented serial-port communication between software and physical machines for live operation.
+\end{tight}
+
+\cvsection{Languages}
+\small
+Turkish --- Native (C2) \quad\textbar\quad English --- Professional working proficiency (C1) \quad\textbar\quad German --- Basic, actively improving (A1)
+
+\end{document}
