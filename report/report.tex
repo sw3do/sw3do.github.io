@@ -27,7 +27,7 @@
 \end{abstract}
 
 \section{Introduction}
-You can find the live site at \href{https://sw3do.github.io}{https://sw3do.github.io} and the source code at \href{https://github.com/sw3do/sw3do.github.io}{github.com/sw3do/sw3do.github.io}. The goal is simple: to show a hiring manager what I can actually build, for a working-student role in Berlin.
+You can find the live site at \url{https://sw3do.github.io} and the source code at \url{https://github.com/sw3do/sw3do.github.io}. The goal is simple: to show a hiring manager what I can actually build, for a working-student role in Berlin.
 
 The main thing I kept in mind was time. A hiring manager usually spends less than a minute on a first look at someone's application \citep{pestoPortfolio}, so I tried to make everything quick to read, while still rewarding a closer look. The rest of this report covers the structure of the site and repository (Section~\ref{sec:structure}), the main design decisions and why I made them (Section~\ref{sec:decisions}), the tools I used (Section~\ref{sec:tools}), and an honest look at the strengths and weaknesses (Section~\ref{sec:reflection}).
 
@@ -65,7 +65,7 @@ The site is data-driven on purpose. My profile, skill groups and project list li
 The CV, the website and this report all share the same simple look: one teal accent colour, a small set of fonts, and a clean layout with plenty of space. Using the same style everywhere helps a reader see them as one piece of work, and keeping it minimal puts the important things near the top, where a busy reader will actually see them \citep{scrimbaPortfolio, pestoPortfolio}.
 
 \subsection{A one-page, single-column, ATS-safe CV}
-The CV is a single page in one column. For a student this is the format most guides recommend: it makes you keep only the best things, and it survives the automated applicant-tracking systems (ATS) that get confused by multi-column layouts \citep{techinterviewhandbook, jobshinobi2026}. I put skills and projects first instead of work history, because as a student my public projects are really my experience \citep{uwcareers2025}. The bullet points try to say what I did, with which technology, and what came out of it, instead of just listing tasks \citep{igotanoffer}. I compile it with \texttt{pdfLaTeX} and a \texttt{glyphtounicode} mapping, so the PDF text can still be selected and copied cleanly \citep{jakesresume, atsresumeai}.
+The CV is a single page in one column. For a student this is the format most guides recommend: it makes you keep only the best things, and it survives the automated applicant-tracking systems (ATS) that get confused by multi-column layouts \citep{techinterviewhandbook, jobshinobi2026}. I put skills and projects first instead of work history, because as a student my public projects are really my experience \citep{uwcareers2025}. The bullet points try to say what I did, with which technology, and what came out of it, instead of just listing tasks \citep{igotanoffer, beamjobs2026}. I compile it with \texttt{pdfLaTeX} and a \texttt{glyphtounicode} mapping, so the PDF text can still be selected and copied cleanly \citep{jakesresume, atsresumeai}.
 
 \subsection{An anonymous CV for the Berlin market}
 The CV has no photo, date of birth or home address. A photo is still common in German applications, but the anonymous CV is becoming normal, especially in Berlin's international, English-speaking tech scene, and it leaves less room for bias \citep{cvcompose2026}. I give my language levels on the CEFR scale and list German honestly at A1, with a note that I am still learning it. German employers seem to value that kind of honesty \citep{goetheCV, werkstudent2026}.
@@ -74,7 +74,7 @@ The CV has no photo, date of birth or home address. A photo is still common in G
 The website is a static site built with Astro and deployed with GitHub Actions. By default Astro sends almost no JavaScript to the browser, which helps a lot with the speed and accessibility goals below, and its content collections make the case studies and blog easy to write and check \citep{astroDocs}. A static build also fits GitHub Pages well and gives me an automatic deploy every time I push.
 
 \subsection{Accessibility, performance and SEO}
-The site uses semantic HTML with a proper heading order, clear labels and visible keyboard focus, and I aimed for WCAG AA colour contrast in both the dark and light themes. This helps accessibility, and since the same things feed into Google's Core Web Vitals, it also helps search ranking and how good the site feels \citep{siteimproveCWV, owdt}. The layout is mobile-first, because Google indexes the mobile version and a lot of people will open the link on their phone \citep{engagecoders}. GitHub Pages cannot run any server code, so I add the search and social data at build time: per-page titles and descriptions, Open Graph and Twitter cards, JSON-LD data, a sitemap and a \texttt{robots.txt} \citep{jekyllpadSEO}.
+The site uses semantic HTML with a proper heading order, clear labels and visible keyboard focus, and I aimed for WCAG AA colour contrast in both the dark and light themes. This helps accessibility, and since the same things feed into Google's Core Web Vitals, it also helps search ranking and how good the site feels \citep{siteimproveCWV, owdt}. The layout is mobile-first, because Google indexes the mobile version and a lot of people will open the link on their phone \citep{engagecoders}. GitHub Pages cannot run any server code, so I add the search and social data at build time: per-page titles and descriptions, Open Graph and Twitter cards, JSON-LD data, a sitemap and a \texttt{robots.txt} \citep{jekyllpadSEO}. On a local production build the site scores 92, 96, 100 and 92 on Google Lighthouse for performance, accessibility, best practices and SEO respectively (Figure~\ref{fig:lighthouse}).
 
 \subsection{Honesty over polish}
 Every project I show is real, and each case study names a real problem I had and an honest ``what I would improve next''. Vague claims with no detail are exactly the kind of thing that makes a portfolio look fake or AI-written \citep{learnist}, so I tried to keep the text specific and honest instead of decorative.
@@ -135,7 +135,12 @@ There are a few things I would like to add. Real numbers for each project (bench
 \appendix
 \section{Lighthouse Audit}
 \IfFileExists{assets/lighthouse.png}{%
-  \begin{center}\includegraphics[width=0.85\textwidth]{assets/lighthouse.png}\end{center}%
+  \begin{figure}[t]
+    \centering
+    \includegraphics[width=0.85\textwidth]{assets/lighthouse.png}
+    \caption{Google Lighthouse audit of \texttt{sw3do.github.io} (run on a local production preview): Performance~92, Accessibility~96, Best Practices~100 and SEO~92.}
+    \label{fig:lighthouse}
+  \end{figure}%
 }{%
   \textit{A Google Lighthouse audit of the deployed site goes here, showing the Performance, Accessibility, Best Practices and SEO scores.}%
 }
