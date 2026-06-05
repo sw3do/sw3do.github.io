@@ -1,6 +1,6 @@
 ---
 name: jikan-rs
-tagline: Async Rust client library for the Jikan (MyAnimeList) API — full endpoint coverage and built-in rate limiting.
+tagline: A Rust library for the Jikan (MyAnimeList) API. It's async, covers every endpoint, and handles rate limiting for you.
 tech: [Rust, async, tokio, serde, crates.io]
 repo: https://github.com/sw3do/jikan-rs
 demo: https://sw3do.github.io/jikan-rs/
@@ -9,16 +9,16 @@ demoLabel: Docs
 
 ## Problem
 
-MyAnimeList has no convenient official REST API; the community-run **Jikan** API fills that gap, but consuming it from Rust meant hand-writing HTTP calls, response models, and rate-limit handling for every endpoint — repetitive and easy to get wrong.
+MyAnimeList doesn't have a nice official API, so the community built Jikan. The problem was that using it from Rust meant writing the same HTTP calls, response types and rate-limit handling again and again, for every single endpoint. It got repetitive and easy to get wrong.
 
 ## Approach & why
 
-I built a typed, async client that wraps the **entire Jikan v4 surface**: each endpoint is a method on a `JikanClient`, responses are strongly typed with **serde**, and everything runs on **tokio**. Two design choices mattered most:
+So I turned all of that into a library. Every Jikan v4 endpoint is a method on a `JikanClient`, the responses are typed with serde, and it all runs async on tokio. Two things mattered most to me:
 
-- **Built-in rate limiting** (3 requests per second, burst of 5) so callers can't accidentally trip Jikan's limits.
-- **Explicit error types** instead of stringly-typed failures, which makes integration code far easier to debug.
+- Rate limiting is built in (3 requests per second, burst of 5), so you can't accidentally get throttled.
+- Errors have real types instead of being plain strings, which makes them much easier to debug.
 
-I published it to **crates.io** so anyone can `cargo add jikan-rs`, and host the generated API docs on GitHub Pages.
+I published it to crates.io so anyone can just `cargo add jikan-rs`, and I put the docs on GitHub Pages.
 
 ```toml
 [dependencies]
@@ -28,14 +28,14 @@ tokio = { version = "1.0", features = ["full"] }
 
 ## A real challenge
 
-Jikan enforces strict rate limits — fire requests naively and you get throttled with `429`s. I added an internal limiter that paces requests transparently, so consumers get correct behaviour without writing their own backoff logic. Modelling every failure mode into a typed error (rather than a generic string) took discipline but paid off the first time I had to debug a flaky endpoint.
+Jikan's rate limit is strict, so my first version got `429` errors almost right away. It was just firing requests in a loop. I moved the rate limiting inside the client so it paces the requests for you, and callers don't have to think about it. Turning every failure into a typed error took some patience, but it really paid off the first time I had to debug a flaky endpoint.
 
 ## Outcome
 
-A published Rust crate with complete anime, manga, character, club, watch, and random endpoint coverage, type-safe responses, comprehensive error handling, and hosted documentation.
+A published Rust crate that covers the anime, manga, character, club, watch and random endpoints, with typed responses, proper error handling, and hosted docs.
 
 ## What I'd improve next
 
-- Optional response caching and configurable retry/backoff.
-- Recorded HTTP fixtures to expand test coverage without hitting the live API.
-- A feature flag to tune the rate limit for users with higher quotas.
+- Optional caching and retry/backoff.
+- Recorded HTTP responses for the tests, so the test suite doesn't hit the live API.
+- A flag to change the rate limit for users who have a higher quota.

@@ -1,33 +1,35 @@
 ---
 name: packet-sniffer
-tagline: Real-time network packet capture and analysis tool in Go, with live traffic parsing and detailed reporting.
+tagline: A small Go tool that captures network traffic in real time, reads the common protocols, and prints what it finds.
 tech: [Go, Networking, libpcap, BPF, Linux]
 repo: https://github.com/sw3do/packet-sniffer
 ---
 
 ## Problem
 
-Inspecting what actually crosses a network interface usually means reaching for a heavy GUI like Wireshark. I wanted a small, scriptable, cross-platform CLI that captures live traffic, decodes the common protocols, and highlights anything suspicious — something I could run on Linux, macOS, or Windows with the same binary.
+I wanted to actually see what my computer sends and receives over the network, without opening a big GUI like Wireshark every time. So I built a small command-line tool that captures live traffic, reads the common protocols, and flags anything that looks suspicious. It runs the same way on Linux, macOS and Windows.
 
 ## Approach & why
 
-I wrote it in **Go** on top of **libpcap** (Npcap on Windows). The design splits cleanly into two files:
+I wrote it in Go on top of libpcap (Npcap on Windows). The capture is basically a loop: open a network device, attach a filter, and read packets as they come in.
 
-- `main.go` holds the capture loop and CLI. The `PacketSniffer` struct owns the device and capture session; `PacketInfo` carries a decoded packet through the pipeline.
-- `analyzer.go` decodes protocols — TCP, UDP, ICMP, HTTP, DNS — and computes traffic statistics.
+I split it into two files so each one has a clear job:
 
-Capture is narrowed with **BPF (Berkeley Packet Filter)** expressions, so you only pay for the packets you care about. Output is colorized for fast reading and can be exported to a file.
+- `main.go` has the CLI and the capture loop. A `PacketSniffer` struct holds the session, and each packet becomes a `PacketInfo` value.
+- `analyzer.go` reads the protocols (TCP, UDP, ICMP, HTTP, DNS) and does the stats.
+
+I also added BPF filters, so you only capture the packets you care about. The output is colored so it's easy to read, and you can save it to a file.
 
 ## A real challenge
 
-Raw capture is privileged and platform-specific: it needs root/admin and a different pcap backend per OS (libpcap on Linux/macOS, Npcap on Windows). Getting one codebase to build and run everywhere meant isolating the platform setup and documenting the privilege requirement up front, then making the capture loop tolerate interfaces that report no packets instead of hanging or panicking.
+The tricky part was permissions and platforms. Raw capture needs root or admin rights, and the pcap backend is different on each OS (libpcap on Linux and macOS, Npcap on Windows). To get one codebase working everywhere, I had to keep the platform setup separate and write down the privilege requirement clearly. I also made the loop handle an interface that returns no packets, instead of just freezing.
 
 ## Outcome
 
-A cross-platform, MIT-licensed CLI that captures in real time, applies BPF filters, decodes the major protocols, flags suspicious activity, prints readable colorized output, and exports captured packets.
+It's a small cross-platform CLI (MIT licensed) that captures in real time, filters with BPF, reads the main protocols, flags suspicious traffic, and can export what it captured.
 
 ## What I'd improve next
 
-- Export to the standard `.pcap` format for Wireshark interoperability.
-- Add more protocol decoders and richer statistics.
-- A small TUI for live filtering while a capture is running.
+- Export to the standard `.pcap` format so captures open in Wireshark.
+- A few more protocol decoders.
+- A small TUI so I can filter live while a capture is running.

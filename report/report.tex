@@ -23,24 +23,24 @@
 \maketitle
 
 \begin{abstract}
-\noindent This report documents the design and implementation of a computer-science portfolio created to support a working-student (\textit{Werkstudent}) application in Berlin. The portfolio consists of a website hosted on GitHub Pages, a one-page CV produced in \LaTeX{}, and this report. The document explains the structure of the website and its repository, justifies the main design decisions against current evidence on technical r\'esum\'es and developer portfolios, lists the tools and technologies used, and reflects on the portfolio's strengths, weaknesses, and planned improvements.
+\noindent This report explains how I designed and built my computer science portfolio for a working-student (\textit{Werkstudent}) application in Berlin. The portfolio has three parts: a website on GitHub Pages, a one-page CV made with \LaTeX{}, and this report. Below I describe how the website and its repository are organised, explain the main design choices and why I made them, list the tools I used, and look back at what works well, what does not, and what I would like to add later.
 \end{abstract}
 
 \section{Introduction}
-The portfolio is published at \href{https://sw3do.github.io}{https://sw3do.github.io} and its source lives at \href{https://github.com/sw3do/sw3do.github.io}{github.com/sw3do/sw3do.github.io}. Its purpose is to present, to a hiring manager, concrete evidence of software-engineering ability for a working-student role in Berlin's international technology sector.
+You can find the live site at \href{https://sw3do.github.io}{https://sw3do.github.io} and the source code at \href{https://github.com/sw3do/sw3do.github.io}{github.com/sw3do/sw3do.github.io}. The goal is simple: to show a hiring manager what I can actually build, for a working-student role in Berlin.
 
-The central design constraint is attention. Recruiters and hiring managers typically spend well under a minute on a first pass over a candidate's materials \citep{pestoPortfolio}, so every artefact is built to communicate competence quickly and to reward a closer look without demanding one. The remainder of this report describes the structure of the website and repository (Section~\ref{sec:structure}), justifies the major design decisions with reference to current practice (Section~\ref{sec:decisions}), lists the tools and technologies used (Section~\ref{sec:tools}), and reflects on what works, what does not, and what could be added next (Section~\ref{sec:reflection}).
+The main thing I kept in mind was time. A hiring manager usually spends less than a minute on a first look at someone's application \citep{pestoPortfolio}, so I tried to make everything quick to read, while still rewarding a closer look. The rest of this report covers the structure of the site and repository (Section~\ref{sec:structure}), the main design decisions and why I made them (Section~\ref{sec:decisions}), the tools I used (Section~\ref{sec:tools}), and an honest look at the strengths and weaknesses (Section~\ref{sec:reflection}).
 
 \section{Portfolio and Repository Structure}
 \label{sec:structure}
 
 \subsection{The website}
-The site is a single, scrollable page with supporting sub-pages. The landing page is divided into clearly labelled sections --- \textit{Hero}, \textit{About}, \textit{Skills}, \textit{Projects}, \textit{Experience} and \textit{Contact} --- so a reader can locate any kind of information at a glance. The hero introduces the candidate with a short statement of focus and a terminal-style panel summarising the technology stack, reinforcing the systems-oriented theme of the work.
+The site is one scrollable page with a few extra sub-pages. The main page is split into clear sections (Hero, About, Skills, Projects, Experience and Contact) so a reader can find anything quickly. The hero at the top has a short intro and a small terminal panel that lists my main tech, which also fits the systems side of my work.
 
-Two kinds of supporting page add depth without cluttering the landing page. \textbf{Case studies} (for example, \texttt{/projects/packet-sniffer} and \texttt{/projects/jikan-rs}) each follow the same honest structure: the problem, the approach and why it was chosen, a concrete challenge encountered, the outcome, and what could be improved next. A small \textbf{blog} hosts short technical notes drawn from the same projects. Only public repositories are featured, so that every repository and demo link a visitor follows resolves correctly.
+There are two kinds of sub-page, so the main page does not get crowded. The case studies (for example \texttt{/projects/packet-sniffer} and \texttt{/projects/jikan-rs}) all follow the same simple structure: the problem, what I did and why, a real problem I ran into, the result, and what I would improve next. A small blog holds short notes about the same projects. I only feature public repositories, so every repo and demo link a visitor clicks actually works.
 
 \subsection{The repository}
-The repository is organised so that files which change together live together:
+I organised the repository so that files which change together stay together:
 
 \begin{quote}\small\ttfamily
 sw3do.github.io/\\
@@ -56,57 +56,57 @@ sw3do.github.io/\\
 \hspace*{1em}README.md
 \end{quote}
 
-The site is deliberately \textbf{data-driven}: the candidate's profile, skill groups and project list live in typed data files, and case studies and blog posts are Markdown entries in Astro \textit{content collections}. Presentation components read from these sources, so updating content never means editing layout code. This separation keeps each file focused and the project easy to extend.
+The site is data-driven on purpose. My profile, skill groups and project list live in typed data files, and the case studies and blog posts are Markdown files in Astro \textit{content collections}. The components just read from these, so changing the content never means touching the layout code. This keeps each file small and the project easy to extend.
 
 \section{Design Decisions and Justification}
 \label{sec:decisions}
 
-\subsection{One coherent brand}
-The CV, website and this report share a single restrained visual identity: one teal accent colour, a small set of typefaces, and a minimal, generously spaced layout. A consistent identity across artefacts helps a reader perceive them as one professional body of work, and minimalism keeps the most relevant information above the fold where a time-pressed reader will see it \citep{scrimbaPortfolio, pestoPortfolio}.
+\subsection{One look across everything}
+The CV, the website and this report all share the same simple look: one teal accent colour, a small set of fonts, and a clean layout with plenty of space. Using the same style everywhere helps a reader see them as one piece of work, and keeping it minimal puts the important things near the top, where a busy reader will actually see them \citep{scrimbaPortfolio, pestoPortfolio}.
 
 \subsection{A one-page, single-column, ATS-safe CV}
-The CV is a single page in one column. For an early-career candidate this is the strongly recommended format: it forces ruthless curation and survives the automated applicant-tracking systems (ATS) that scramble multi-column layouts \citep{techinterviewhandbook, jobshinobi2026}. The structure leads with skills and projects rather than employment history, because for a student the public project portfolio \textit{is} the experience \citep{uwcareers2025}. Bullet points follow an action--technology--result shape rather than listing duties \citep{igotanoffer}, and the document is compiled with \texttt{pdfLaTeX} using a \texttt{glyphtounicode} mapping so the exported PDF yields clean, selectable text \citep{jakesresume, atsresumeai}.
+The CV is a single page in one column. For a student this is the format most guides recommend: it makes you keep only the best things, and it survives the automated applicant-tracking systems (ATS) that get confused by multi-column layouts \citep{techinterviewhandbook, jobshinobi2026}. I put skills and projects first instead of work history, because as a student my public projects are really my experience \citep{uwcareers2025}. The bullet points try to say what I did, with which technology, and what came out of it, instead of just listing tasks \citep{igotanoffer}. I compile it with \texttt{pdfLaTeX} and a \texttt{glyphtounicode} mapping, so the PDF text can still be selected and copied cleanly \citep{jakesresume, atsresumeai}.
 
-\subsection{An anonymised CV for the Berlin market}
-The CV omits a photograph, date of birth and home address. Although a photo remains common in German applications, the anonymised CV is an accepted and growing norm, particularly in Berlin's international, English-speaking technology scene, and it reduces the scope for unconscious bias \citep{cvcompose2026}. Language ability is given on the CEFR scale, and German is listed honestly at A1 with a note that it is actively improving --- a signal of commitment that German employers value \citep{goetheCV, werkstudent2026}.
+\subsection{An anonymous CV for the Berlin market}
+The CV has no photo, date of birth or home address. A photo is still common in German applications, but the anonymous CV is becoming normal, especially in Berlin's international, English-speaking tech scene, and it leaves less room for bias \citep{cvcompose2026}. I give my language levels on the CEFR scale and list German honestly at A1, with a note that I am still learning it. German employers seem to value that kind of honesty \citep{goetheCV, werkstudent2026}.
 
-\subsection{A static site built with Astro}
-The website is a static site generated with Astro and deployed through GitHub Actions. Astro ships almost no client-side JavaScript by default, which directly supports the performance and accessibility goals below, and its content collections make the case studies and blog easy to author and validate \citep{astroDocs}. A static build is also the natural fit for GitHub Pages and gives a reproducible, automated deployment pipeline.
+\subsection{A static site with Astro}
+The website is a static site built with Astro and deployed with GitHub Actions. By default Astro sends almost no JavaScript to the browser, which helps a lot with the speed and accessibility goals below, and its content collections make the case studies and blog easy to write and check \citep{astroDocs}. A static build also fits GitHub Pages well and gives me an automatic deploy every time I push.
 
 \subsection{Accessibility, performance and SEO}
-The site is built on semantic HTML with a correct heading hierarchy, descriptive labels and visible keyboard focus, and it targets WCAG~AA colour contrast in both its dark and light themes. These choices improve accessibility and, because the same signals feed Google's Core Web Vitals, also improve search and perceived quality \citep{siteimproveCWV, owdt}. The layout is mobile-first, reflecting mobile-first indexing and the reality that many reviewers open links on a phone \citep{engagecoders}. Because GitHub Pages cannot run server-side logic, search-engine and social metadata are baked in at build time: per-page titles and descriptions, Open Graph and Twitter cards, JSON-LD structured data, a sitemap and a \texttt{robots.txt} \citep{jekyllpadSEO}.
+The site uses semantic HTML with a proper heading order, clear labels and visible keyboard focus, and I aimed for WCAG AA colour contrast in both the dark and light themes. This helps accessibility, and since the same things feed into Google's Core Web Vitals, it also helps search ranking and how good the site feels \citep{siteimproveCWV, owdt}. The layout is mobile-first, because Google indexes the mobile version and a lot of people will open the link on their phone \citep{engagecoders}. GitHub Pages cannot run any server code, so I add the search and social data at build time: per-page titles and descriptions, Open Graph and Twitter cards, JSON-LD data, a sitemap and a \texttt{robots.txt} \citep{jekyllpadSEO}.
 
 \subsection{Honesty over polish}
-Every featured project is real, and each case study names a concrete challenge and an honest ``what I would improve next''. Vague, metric-free claims and rule-of-three filler are precisely the tells that mark a portfolio as inflated or machine-generated \citep{learnist}, so the content favours specific, verifiable statements over decoration.
+Every project I show is real, and each case study names a real problem I had and an honest ``what I would improve next''. Vague claims with no detail are exactly the kind of thing that makes a portfolio look fake or AI-written \citep{learnist}, so I tried to keep the text specific and honest instead of decorative.
 
 \section{Tools and Technologies}
 \label{sec:tools}
 \begin{itemize}
 \item \textbf{Astro + TypeScript} --- static site generation with typed data and content collections.
-\item \textbf{CSS custom properties} --- a single source of truth for the dark/light design tokens.
-\item \textbf{astro-icon} with \textbf{Lucide} and \textbf{Simple Icons} --- accessible, build-time inlined SVG icons.
-\item \textbf{@fontsource} (Space Grotesk, Inter, JetBrains Mono) --- self-hosted fonts for performance and offline builds.
-\item \textbf{@astrojs/sitemap} --- automatic sitemap generation.
-\item \textbf{GitHub Pages + GitHub Actions} --- hosting and continuous deployment on every push.
+\item \textbf{CSS custom properties} --- one source of truth for the dark and light design tokens.
+\item \textbf{astro-icon} with \textbf{Lucide} and \textbf{Simple Icons} --- accessible SVG icons inlined at build time.
+\item \textbf{@fontsource} (Space Grotesk, Inter, JetBrains Mono) --- self-hosted fonts, so the build works offline and stays fast.
+\item \textbf{@astrojs/sitemap} --- generates the sitemap automatically.
+\item \textbf{GitHub Pages + GitHub Actions} --- hosting, and a deploy on every push.
 \item \textbf{Git} --- version control.
 \item \textbf{\LaTeX} (\texttt{pdfLaTeX}, \texttt{lmodern}, \texttt{natbib}, \texttt{glyphtounicode}) --- the CV and this report.
-\item \textbf{Pillow} --- programmatic generation of the social-share (Open Graph) image.
-\item \textbf{Google Lighthouse} --- auditing performance, accessibility, best practices and SEO.
+\item \textbf{Pillow} --- generating the social-share (Open Graph) image in code.
+\item \textbf{Google Lighthouse} --- checking performance, accessibility, best practices and SEO.
 \end{itemize}
 
-The toolchain was deliberately kept lightweight and portable: the documents compile with a minimal \LaTeX{} installation and no external citation processor, and the site builds with a single \texttt{npm} command.
+I kept the toolchain small and portable on purpose. The documents compile with a basic \LaTeX{} install and no extra citation program, and the site builds with a single \texttt{npm} command.
 
 \section{Reflection}
 \label{sec:reflection}
 
 \subsection{Strengths}
-The portfolio shows genuine breadth and depth: production-style work across Rust, Go, Python and TypeScript, spanning a published library, a systems/networking tool, a machine-learning service and a cross-platform desktop application. Quality is measurable rather than asserted --- the site is accessible, fast and search-optimised --- and the CV, website and report read as one coherent identity. The deployment is reproducible through continuous integration, and the CV is verifiably ATS-safe.
+I think the portfolio shows a decent range and some depth. There are real projects in Rust, Go, Python and TypeScript: a published library, a networking tool, a small machine-learning service, and a cross-platform desktop app. A lot of the quality can be measured instead of just claimed, since the site is accessible, fast and set up for search. The CV, website and report also look like one consistent thing, the deploy happens automatically, and the CV is properly ATS-safe.
 
 \subsection{Weaknesses}
-Formal professional experience is still limited, and several featured projects are libraries or command-line tools without a hosted live demo, which is less immediately persuasive than an interactive web app. German is only at A1. The site has no automated test suite, and as a single-author project it has not had external code review.
+My formal work experience is still limited, and a few of the projects are libraries or command-line tools with no live demo, which is harder to show off than an interactive web app. My German is only A1. The site has no automated tests, and since I worked on it alone, nobody else has reviewed the code.
 
 \subsection{Future work}
-Planned improvements include: per-project quantitative metrics (benchmarks, test coverage, download counts); additional case studies; a custom domain; automated link-checking and Lighthouse runs in continuous integration to prevent regressions; internationalisation (English, German and Turkish); and a more active blog. Adding hosted demos for the library and CLI projects --- for instance an interactive playground --- would also strengthen the first impression.
+There are a few things I would like to add. Real numbers for each project (benchmarks, test coverage, download counts), more case studies, a custom domain, automatic link-checking and Lighthouse runs in CI so things do not break, support for more languages (English, German and Turkish), and a more active blog. Adding live demos for the library and CLI projects, maybe a small playground, would also make a better first impression.
 
 \begingroup
 \raggedright
@@ -137,7 +137,7 @@ Planned improvements include: per-project quantitative metrics (benchmarks, test
 \IfFileExists{assets/lighthouse.png}{%
   \begin{center}\includegraphics[width=0.85\textwidth]{assets/lighthouse.png}\end{center}%
 }{%
-  \textit{A Google Lighthouse audit of the deployed site is included here, reporting the Performance, Accessibility, Best Practices and SEO scores.}%
+  \textit{A Google Lighthouse audit of the deployed site goes here, showing the Performance, Accessibility, Best Practices and SEO scores.}%
 }
 
 \end{document}

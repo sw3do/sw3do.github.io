@@ -15,7 +15,7 @@ export const projects: Project[] = [
   {
     slug: 'jikan-rs',
     name: 'jikan-rs',
-    tagline: 'Async Rust client library for the Jikan (MyAnimeList) API — full endpoint coverage and built-in rate limiting.',
+    tagline: "A Rust library for the Jikan (MyAnimeList) API. It's async, covers every endpoint, and handles rate limiting for you.",
     tech: ['Rust', 'async', 'crates.io'],
     repo: 'https://github.com/sw3do/jikan-rs',
     demo: 'https://sw3do.github.io/jikan-rs/',
@@ -27,7 +27,7 @@ export const projects: Project[] = [
   {
     slug: 'packet-sniffer',
     name: 'packet-sniffer',
-    tagline: 'Real-time network packet capture and analysis tool in Go, with live traffic parsing and detailed reporting.',
+    tagline: 'A small Go tool that captures network traffic in real time, reads the common protocols, and prints what it finds.',
     tech: ['Go', 'Networking', 'Linux'],
     repo: 'https://github.com/sw3do/packet-sniffer',
     featured: true,
@@ -37,7 +37,7 @@ export const projects: Project[] = [
   {
     slug: 'nsfw-detector',
     name: 'nsfw-detector',
-    tagline: 'Image NSFW-content classifier exposed as a Python library and REST API, built on TensorFlow/Keras.',
+    tagline: 'A Python library and small REST API that checks images for NSFW content, built on TensorFlow/Keras.',
     tech: ['Python', 'TensorFlow', 'Keras'],
     repo: 'https://github.com/sw3do/nsfw-detector',
     featured: true,
@@ -47,7 +47,7 @@ export const projects: Project[] = [
   {
     slug: 'discord-custom-rpc',
     name: 'discord-custom-rpc',
-    tagline: 'Cross-platform desktop app to create and manage custom Discord Rich Presence — built with Tauri, Vue 3 and Rust.',
+    tagline: 'A desktop app for making your own Discord Rich Presence. Built with Tauri, Vue 3 and Rust, so it runs everywhere.',
     tech: ['Tauri', 'Vue', 'Rust', 'TypeScript'],
     repo: 'https://github.com/sw3do/discord-custom-rpc',
     featured: true,
@@ -57,7 +57,7 @@ export const projects: Project[] = [
   {
     slug: 'toxblock',
     name: 'toxblock',
-    tagline: 'TypeScript module that uses Google Gemini to detect toxic and inappropriate language across all languages, fully typed and tested.',
+    tagline: 'A TypeScript module that uses Google Gemini to flag toxic or rude text in any language. Fully typed and tested.',
     tech: ['TypeScript', 'Gemini AI', 'NLP'],
     repo: 'https://github.com/sw3do/toxblock',
     demo: 'https://sw3do.github.io/toxblock/',
@@ -69,7 +69,7 @@ export const projects: Project[] = [
   {
     slug: 'speedtest',
     name: 'speedtest',
-    tagline: 'Internet speed-test web app with real-time analytics and network insights, built with Next.js and TypeScript.',
+    tagline: 'An internet speed test built with Next.js and TypeScript, with live charts and some network details.',
     tech: ['Next.js', 'TypeScript', 'React'],
     repo: 'https://github.com/sw3do/speedtest',
     featured: true,
@@ -80,7 +80,7 @@ export const projects: Project[] = [
   {
     slug: 'discord-tag-role-bot',
     name: 'discord-tag-role-bot',
-    tagline: 'Discord bot that automatically assigns and removes roles based on a user’s primary guild tag.',
+    tagline: "A Discord bot that gives and removes roles based on a user's guild tag.",
     tech: ['TypeScript', 'Discord.js', 'Node.js'],
     repo: 'https://github.com/sw3do/discord-tag-role-bot',
     featured: false,
@@ -90,7 +90,7 @@ export const projects: Project[] = [
   {
     slug: 'video-converter-site',
     name: 'video-converter-site',
-    tagline: 'Browser-based video converter using FFmpeg WebAssembly — converts locally, nothing is uploaded.',
+    tagline: 'A video converter that runs fully in the browser with FFmpeg WebAssembly, so your files never get uploaded.',
     tech: ['SvelteKit', 'FFmpeg WASM', 'TypeScript'],
     repo: 'https://github.com/sw3do/video-converter-site',
     featured: false,
@@ -100,7 +100,7 @@ export const projects: Project[] = [
   {
     slug: 'macos-service-manager',
     name: 'macos-service-manager',
-    tagline: 'Interactive Rust CLI to manage macOS launchd and Homebrew services.',
+    tagline: 'A small Rust CLI for managing macOS launchd and Homebrew services from one place.',
     tech: ['Rust', 'CLI'],
     repo: 'https://github.com/sw3do/macos-service-manager',
     featured: false,

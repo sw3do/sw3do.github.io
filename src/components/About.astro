@@ -6,18 +6,20 @@ import { profile } from '../data/profile';
     <div class="grid">
       <div class="head">
         <p class="eyebrow">// about</p>
-        <h2>Student by title,<br />engineer by practice.</h2>
+        <h2>A little about me</h2>
       </div>
       <div class="body">
         <p>
-          I'm a Software Engineering student at {profile.education.school} in Berlin. Most of what I know
-          comes from building real tools end to end — production-style backends and CLIs in Rust and Go,
-          full-stack web apps in TypeScript, and the occasional foray into machine learning.
+          I'm studying Software Engineering at {profile.education.school} in Berlin, but to be honest,
+          most of what I know comes from building things on my own. I've written backends and command-line
+          tools in Rust and Go, full-stack web apps in TypeScript, and I've also played around with a bit
+          of machine learning.
         </p>
         <p>
-          My favourite work sits close to the metal: a self-hosted file service, a network packet analyzer,
-          and serial-port integrations that make software talk to physical machines. I'm looking for a
-          working-student role where I can keep shipping and learning alongside a real team.
+          The work I enjoy most is the kind that's close to the hardware: a network traffic analyzer,
+          serial-port code that lets software control physical machines, and small tools I actually use
+          myself. Right now I'm looking for a working-student role where I can keep building and learning
+          with a real team.
         </p>
         <ul class="langs" aria-label="Languages">
           {profile.languages.map((l) => (

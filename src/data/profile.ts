@@ -7,8 +7,8 @@ export const profile = {
   githubUser: 'sw3do',
   linkedin: 'https://linkedin.com/in/swedo',
   site: 'https://sw3do.github.io',
-  tagline: 'Building backends, systems & full-stack apps.',
-  bio: 'B.Sc. Software Engineering student in Berlin shipping production-style tools in Rust, Go and TypeScript — from Dockerized APIs to a published crate and serial-port hardware integrations.',
+  tagline: 'I build backends, tools and full-stack apps.',
+  bio: "I'm a Software Engineering student in Berlin. I mostly work with Rust, Go and TypeScript, and I learn best by building real things: a published Rust crate, a few backend APIs, and some serial-port code that talks to physical machines.",
   education: {
     degree: 'B.Sc. Software Engineering',
     school: 'GISMA University of Applied Sciences',
@@ -17,20 +17,20 @@ export const profile = {
   },
   experience: [
     {
-      title: 'Working Student — Software & Operations',
+      title: 'Working Student, Software & Operations',
       org: 'Bar & Entertainment Venue',
       place: 'Berlin, Germany',
       period: 'Part-time',
       points: [
-        'Built internal software tools supporting day-to-day operations at the venue.',
-        'Implemented serial-port communication between software and physical machines for live operation.',
-        'Automated routine operational processes on Linux.',
+        'Built small internal tools that made the day-to-day work at the venue easier.',
+        'Wrote serial-port code so our software could talk to the physical machines while they were running.',
+        'Automated a few repetitive tasks on Linux.',
       ],
     },
   ],
   languages: [
     { name: 'Turkish', level: 'Native', cefr: 'C2' },
     { name: 'English', level: 'Professional working proficiency', cefr: 'C1' },
-    { name: 'German', level: 'Basic, actively improving', cefr: 'A1' },
+    { name: 'German', level: 'Basic, learning', cefr: 'A1' },
   ],
 } as const;
