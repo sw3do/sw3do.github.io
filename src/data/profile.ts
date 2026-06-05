@@ -7,7 +7,6 @@ export const profile = {
   githubUser: 'sw3do',
   linkedin: 'https://linkedin.com/in/swedo',
   site: 'https://sw3do.github.io',
-  availability: 'Available · Werkstudent ≤ 20 h/week',
   tagline: 'Building backends, systems & full-stack apps.',
   bio: 'B.Sc. Software Engineering student in Berlin shipping production-style tools in Rust, Go and TypeScript — from Dockerized APIs to a published crate and serial-port hardware integrations.',
   education: {

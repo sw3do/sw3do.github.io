@@ -1,0 +1,95 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { Project } from '../data/projects';
+interface Props { project: Project; }
+const { project } = Astro.props;
+const { slug, name, tagline, tech, repo, demo, demoLabel, caseStudy, domain } = project;
+---
+<article class="card">
+  <div class="top">
+    <span class="domain">{domain}</span>
+    <Icon name="lucide:folder-git-2" class="topmark" />
+  </div>
+  <h3 class="name">{name}</h3>
+  <p class="tagline">{tagline}</p>
+  <ul class="tech">{tech.map((t) => <li>{t}</li>)}</ul>
+  <div class="links">
+    <a href={repo} target="_blank" rel="noopener"><Icon name="simple-icons:github" /> Repo</a>
+    {demo && <a href={demo} target="_blank" rel="noopener"><Icon name="lucide:external-link" /> {demoLabel ?? 'Demo'}</a>}
+    {caseStudy && <a class="case" href={`/projects/${slug}`}>Case study <Icon name="lucide:arrow-right" /></a>}
+  </div>
+</article>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 22px 20px;
+    height: 100%;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .card:hover {
+    border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+  }
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+  .domain {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .topmark { width: 18px; height: 18px; color: var(--border-strong); }
+  .card:hover .topmark { color: var(--accent); }
+  .name { font-size: 1.25rem; }
+  .tagline {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    margin: 10px 0 16px;
+    flex: 1;
+  }
+  .tech {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-bottom: 18px;
+  }
+  .tech li {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 4px 9px;
+  }
+  .links {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+  }
+  .links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--muted);
+  }
+  .links a :global(svg) { width: 14px; height: 14px; }
+  .links a:hover { color: var(--accent); text-decoration: none; }
+  .links .case { color: var(--accent); margin-left: auto; }
+</style>

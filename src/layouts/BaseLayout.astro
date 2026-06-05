@@ -19,9 +19,16 @@ const { title, description, image, type, jsonLd } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <script is:inline>
       (() => {
+        const root = document.documentElement;
         const saved = localStorage.getItem('theme');
         const sys = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-theme', saved || sys);
+        root.setAttribute('data-theme', saved || sys);
+        addEventListener('click', (e) => {
+          if (!e.target.closest || !e.target.closest('[data-theme-toggle]')) return;
+          const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+          root.setAttribute('data-theme', next);
+          localStorage.setItem('theme', next);
+        });
       })();
     </script>
     <SEO title={title} description={description} image={image} type={type} jsonLd={jsonLd} />

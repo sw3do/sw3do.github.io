@@ -1,0 +1,144 @@
+---
+import { Icon } from 'astro-icon/components';
+import ThemeToggle from './ThemeToggle.astro';
+const links = [
+  { href: '/#about', label: 'about' },
+  { href: '/#projects', label: 'projects' },
+  { href: '/#experience', label: 'experience' },
+  { href: '/blog', label: 'blog' },
+  { href: '/#contact', label: 'contact' },
+];
+---
+<header class="nav" id="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="/">~/<span>mert</span></a>
+
+    <nav class="links" aria-label="Primary">
+      {links.map((l) => <a href={l.href}>{l.label}</a>)}
+      <a class="cv" href="/Mert-Celik-CV.pdf" target="_blank" rel="noopener"><Icon name="lucide:download" /> CV</a>
+      <ThemeToggle />
+    </nav>
+
+    <button class="burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <nav class="mobile" id="mobile-menu" aria-label="Mobile" hidden>
+    {links.map((l) => <a href={l.href} class="m-link">{l.label}</a>)}
+    <a class="m-link" href="/Mert-Celik-CV.pdf" target="_blank" rel="noopener">cv</a>
+    <div class="m-toggle"><ThemeToggle /></div>
+  </nav>
+</header>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.25s ease;
+  }
+  .nav.scrolled { border-bottom-color: var(--border); }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+  .brand {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--text);
+  }
+  .brand:hover { text-decoration: none; }
+  .brand span { color: var(--accent); }
+  .links {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+  }
+  .links a {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--muted);
+    transition: color 0.18s ease;
+  }
+  .links a:hover { color: var(--accent); text-decoration: none; }
+  .links .cv {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 7px;
+    padding: 6px 14px;
+  }
+  .links .cv :global(svg) { width: 14px; height: 14px; }
+  .links .cv:hover { background: var(--accent); color: var(--on-accent); }
+
+  .burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .burger span {
+    width: 22px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+  .burger[aria-expanded='true'] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .burger[aria-expanded='true'] span:nth-child(2) { opacity: 0; }
+  .burger[aria-expanded='true'] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px 24px 20px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+  }
+  .mobile[data-open] { display: flex; }
+  .m-link {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    color: var(--text);
+    padding: 10px 4px;
+  }
+  .m-link:hover { color: var(--accent); text-decoration: none; }
+  .m-toggle { padding-top: 8px; }
+
+  @media (max-width: 720px) {
+    .links { display: none; }
+    .burger { display: flex; }
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const nav = document.getElementById('nav');
+    const onScroll = () => nav?.classList.toggle('scrolled', window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    const burger = document.getElementById('burger');
+    const menu = document.getElementById('mobile-menu');
+    const setOpen = (open) => {
+      burger?.setAttribute('aria-expanded', String(open));
+      if (open) { menu?.setAttribute('data-open', ''); menu?.removeAttribute('hidden'); }
+      else { menu?.removeAttribute('data-open'); menu?.setAttribute('hidden', ''); }
+    };
+    burger?.addEventListener('click', () => setOpen(burger.getAttribute('aria-expanded') !== 'true'));
+    menu?.querySelectorAll('.m-link').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+  })();
+</script>

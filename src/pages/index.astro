@@ -1,6 +1,40 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Skills from '../components/Skills.astro';
+import Projects from '../components/Projects.astro';
+import Experience from '../components/Experience.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import { profile } from '../data/profile';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: profile.name,
+  jobTitle: profile.role,
+  url: profile.site,
+  email: `mailto:${profile.email}`,
+  address: { '@type': 'PostalAddress', addressLocality: 'Berlin', addressCountry: 'DE' },
+  sameAs: [profile.github, profile.linkedin],
+  knowsLanguage: profile.languages.map((l) => l.name),
+};
 ---
-<BaseLayout title="Mert Çelik" description="Portfolio of Mert Çelik">
-  <main id="main"><h1>Mert Çelik</h1></main>
+<BaseLayout
+  title="Mert Çelik — Software Engineering Student & Working Student, Berlin"
+  description="Portfolio of Mert Çelik: backend, systems and full-stack work in Rust, Go and TypeScript. B.Sc. Software Engineering student in Berlin, available as a Werkstudent."
+  jsonLd={jsonLd}
+>
+  <Nav />
+  <main id="main">
+    <Hero />
+    <About />
+    <Skills />
+    <Projects />
+    <Experience />
+    <Contact />
+  </main>
+  <Footer />
 </BaseLayout>

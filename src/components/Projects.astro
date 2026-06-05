@@ -1,0 +1,46 @@
+---
+import { Icon } from 'astro-icon/components';
+import { featured } from '../data/projects';
+import ProjectCard from './ProjectCard.astro';
+---
+<section class="section projects" id="projects">
+  <div class="container">
+    <div class="section-head head">
+      <div>
+        <p class="eyebrow">// projects</p>
+        <h2>Selected work</h2>
+      </div>
+      <a class="all" href="https://github.com/sw3do?tab=repositories" target="_blank" rel="noopener">
+        All repositories <Icon name="lucide:external-link" />
+      </a>
+    </div>
+    <div class="grid">
+      {featured.map((p) => <ProjectCard project={p} />)}
+    </div>
+  </div>
+</section>
+
+<style>
+  .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 16px;
+  }
+  .all {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .all :global(svg) { width: 14px; height: 14px; }
+  .all:hover { color: var(--accent); text-decoration: none; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+</style>

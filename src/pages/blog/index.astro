@@ -1,0 +1,61 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+
+const posts = (await getCollection('blog'))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const fmt = (d: Date) =>
+  new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: 'numeric' }).format(d);
+---
+<BaseLayout
+  title="Blog — Mert Çelik"
+  description="Short technical notes from building backends, systems and full-stack tools in Rust, Go and TypeScript."
+>
+  <Nav />
+  <main id="main" class="wrap">
+    <div class="container narrow">
+      <p class="eyebrow">// blog</p>
+      <h1>Writing &amp; notes</h1>
+      <p class="lead muted">Short, honest notes from building my projects.</p>
+
+      <ul class="posts">
+        {posts.map((p) => (
+          <li class="post">
+            <a href={`/blog/${p.id}`}>
+              <time datetime={p.data.date.toISOString()}>{fmt(p.data.date)}</time>
+              <h2>{p.data.title}</h2>
+              <p class="desc">{p.data.description}</p>
+              <span class="tags">{p.data.tags.join(' · ')}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .wrap { padding: 104px 0 40px; }
+  .narrow { max-width: 760px; }
+  h1 { font-size: clamp(2rem, 5vw, 3rem); margin: 8px 0 10px; }
+  .lead { font-size: 1.05rem; margin-bottom: 40px; }
+  .posts { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+  .post a {
+    display: block;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    background: var(--surface);
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .post a:hover { border-color: var(--accent); transform: translateY(-3px); text-decoration: none; }
+  .post time { font-family: var(--font-mono); font-size: 12.5px; color: var(--accent); }
+  .post h2 { font-size: 1.35rem; margin: 8px 0; }
+  .post .desc { color: var(--muted); }
+  .post .tags { display: inline-block; margin-top: 12px; font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+</style>

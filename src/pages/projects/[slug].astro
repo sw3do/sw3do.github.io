@@ -1,0 +1,66 @@
+---
+import { getCollection, render } from 'astro:content';
+import { Icon } from 'astro-icon/components';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('projects');
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { name, tagline, tech, repo, demo, demoLabel } = entry.data;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  name,
+  abstract: tagline,
+  url: new URL(`/projects/${entry.id}`, Astro.site).href,
+  codeRepository: repo,
+  author: { '@type': 'Person', name: 'Mert Çelik' },
+};
+---
+<ArticleLayout
+  title={name}
+  description={tagline}
+  eyebrow="case study"
+  backHref="/#projects"
+  backLabel="All projects"
+  jsonLd={jsonLd}
+>
+  <Fragment slot="meta">
+    <ul class="tags">{tech.map((t) => <li>{t}</li>)}</ul>
+    <div class="btns">
+      <a class="btn" href={repo} target="_blank" rel="noopener"><Icon name="simple-icons:github" /> Repository</a>
+      {demo && <a class="btn" href={demo} target="_blank" rel="noopener"><Icon name="lucide:external-link" /> {demoLabel ?? 'Demo'}</a>}
+    </div>
+  </Fragment>
+  <Content />
+</ArticleLayout>
+
+<style>
+  .tags { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+  .tags li {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 4px 10px;
+  }
+  .btns { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text);
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    padding: 8px 14px;
+  }
+  .btn :global(svg) { width: 15px; height: 15px; }
+  .btn:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+</style>

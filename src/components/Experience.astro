@@ -1,0 +1,75 @@
+---
+import { profile } from '../data/profile';
+const items = [
+  ...profile.experience.map((e) => ({
+    title: e.title,
+    sub: `${e.org} · ${e.place}`,
+    period: e.period,
+    points: [...e.points],
+  })),
+  {
+    title: 'Open-Source Developer',
+    sub: 'github.com/sw3do',
+    period: 'Ongoing',
+    points: [
+      'Author and maintainer of 30+ public repositories across Rust, Go, Python and TypeScript.',
+      'Published a Rust library to crates.io and ship small, practical tools end to end.',
+    ],
+  },
+];
+---
+<section class="section experience" id="experience">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">// experience</p>
+      <h2>Where I've been building</h2>
+    </div>
+    <ol class="timeline">
+      {items.map((it) => (
+        <li class="item">
+          <div class="marker" aria-hidden="true"></div>
+          <div class="content">
+            <div class="row">
+              <h3>{it.title}</h3>
+              <span class="period">{it.period}</span>
+            </div>
+            <p class="sub">{it.sub}</p>
+            <ul class="points">{it.points.map((p) => <li>{p}</li>)}</ul>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .timeline { list-style: none; position: relative; padding-left: 28px; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 6px;
+    bottom: 6px;
+    width: 2px;
+    background: var(--border);
+  }
+  .item { position: relative; padding-bottom: 34px; }
+  .item:last-child { padding-bottom: 0; }
+  .marker {
+    position: absolute;
+    left: -28px;
+    top: 5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--accent);
+  }
+  .row { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+  .row h3 { font-size: 1.15rem; }
+  .period { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); }
+  .sub { font-family: var(--font-mono); font-size: 13px; color: var(--accent); margin: 4px 0 12px; }
+  .points { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .points li { color: var(--muted); padding-left: 18px; position: relative; }
+  .points li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); }
+</style>

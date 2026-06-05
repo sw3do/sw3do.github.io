@@ -1,0 +1,68 @@
+---
+import { profile } from '../data/profile';
+---
+<section class="section about" id="about">
+  <div class="container">
+    <div class="grid">
+      <div class="head">
+        <p class="eyebrow">// about</p>
+        <h2>Student by title,<br />engineer by practice.</h2>
+      </div>
+      <div class="body">
+        <p>
+          I'm a Software Engineering student at {profile.education.school} in Berlin. Most of what I know
+          comes from building real tools end to end — production-style backends and CLIs in Rust and Go,
+          full-stack web apps in TypeScript, and the occasional foray into machine learning.
+        </p>
+        <p>
+          My favourite work sits close to the metal: a self-hosted file service, a network packet analyzer,
+          and serial-port integrations that make software talk to physical machines. I'm looking for a
+          working-student role where I can keep shipping and learning alongside a real team.
+        </p>
+        <ul class="langs" aria-label="Languages">
+          {profile.languages.map((l) => (
+            <li>
+              <span class="ln">{l.name}</span>
+              <span class="lv">{l.level} · {l.cefr}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 48px;
+  }
+  .head h2 { font-size: clamp(1.6rem, 3.4vw, 2.3rem); }
+  .head .eyebrow { margin-bottom: 14px; }
+  .body p {
+    color: var(--muted);
+    font-size: 1.05rem;
+    margin-bottom: 18px;
+  }
+  .body p :global(strong) { color: var(--text); }
+  .langs {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 26px;
+  }
+  .langs li {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 14px;
+    background: var(--surface);
+  }
+  .ln { display: block; font-weight: 600; font-size: 0.95rem; }
+  .lv { display: block; font-family: var(--font-mono); font-size: 12px; color: var(--muted); margin-top: 3px; }
+
+  @media (max-width: 760px) {
+    .grid { grid-template-columns: 1fr; gap: 24px; }
+  }
+</style>

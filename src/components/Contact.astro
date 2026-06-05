@@ -1,0 +1,79 @@
+---
+import { Icon } from 'astro-icon/components';
+import { profile } from '../data/profile';
+const items = [
+  { label: 'Email', value: profile.email, href: `mailto:${profile.email}`, ext: false, icon: 'lucide:mail' },
+  { label: 'GitHub', value: 'github.com/sw3do', href: profile.github, ext: true, icon: 'simple-icons:github' },
+  { label: 'LinkedIn', value: 'linkedin.com/in/swedo', href: profile.linkedin, ext: true, icon: 'simple-icons:linkedin' },
+  { label: 'CV', value: 'Mert-Celik-CV.pdf', href: '/Mert-Celik-CV.pdf', ext: true, icon: 'lucide:file-text' },
+];
+---
+<section class="section contact" id="contact">
+  <div class="container">
+    <div class="panel">
+      <p class="eyebrow">// contact</p>
+      <h2>Let's build something.</h2>
+      <p class="lead">
+        Open to working-student roles in Berlin and remote-friendly teams. The fastest way to reach me is email —
+        I usually reply within a day.
+      </p>
+      <div class="links">
+        {items.map((it) => (
+          <a href={it.href} target={it.ext ? '_blank' : undefined} rel={it.ext ? 'noopener' : undefined}>
+            <span class="k"><Icon name={it.icon} /> {it.label}</span>
+            <span class="v">{it.value} <Icon name="lucide:arrow-up-right" class="arrow" /></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .panel {
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 48px 40px;
+    background:
+      radial-gradient(500px 200px at 100% 0%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 70%),
+      var(--surface);
+  }
+  .panel h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin-top: 12px; }
+  .lead { color: var(--muted); font-size: 1.05rem; max-width: 34rem; margin-top: 14px; }
+  .links {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 32px;
+  }
+  .links a {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    background: var(--bg);
+    transition: border-color 0.18s ease, transform 0.18s ease;
+  }
+  .links a:hover { border-color: var(--accent); transform: translateY(-2px); text-decoration: none; }
+  .links .k {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .links .k :global(svg) { width: 14px; height: 14px; }
+  .links .v { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: var(--text); }
+  .links .v :global(.arrow) { width: 15px; height: 15px; color: var(--muted); }
+  .links a:hover .v :global(.arrow) { color: var(--accent); }
+
+  @media (max-width: 640px) {
+    .panel { padding: 36px 22px; }
+    .links { grid-template-columns: 1fr; }
+  }
+</style>

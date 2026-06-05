@@ -1,0 +1,47 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from './BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+interface Props {
+  title: string;
+  description: string;
+  eyebrow: string;
+  backHref: string;
+  backLabel: string;
+  jsonLd?: object;
+}
+const { title, description, eyebrow, backHref, backLabel, jsonLd } = Astro.props;
+---
+<BaseLayout title={`${title} — Mert Çelik`} description={description} type="article" jsonLd={jsonLd}>
+  <Nav />
+  <main id="main" class="article">
+    <div class="container narrow">
+      <a class="back" href={backHref}><Icon name="lucide:arrow-left" /> {backLabel}</a>
+      <p class="eyebrow">// {eyebrow}</p>
+      <h1>{title}</h1>
+      <div class="meta"><slot name="meta" /></div>
+      <article class="prose"><slot /></article>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .article { padding: 104px 0 40px; }
+  .narrow { max-width: 760px; }
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+  .back :global(svg) { width: 15px; height: 15px; }
+  .back:hover { color: var(--accent); text-decoration: none; }
+  h1 { font-size: clamp(1.9rem, 5vw, 2.8rem); margin: 12px 0; }
+  .eyebrow { margin-bottom: 4px; }
+  .meta { margin: 14px 0 8px; }
+</style>
